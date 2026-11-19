@@ -27,7 +27,7 @@ Shared project contract for coding agents assisting the 5-member **IntroML-DBSCA
 - **Reproducibility**: Initialize RNG via `set_seed(cfg.seed)` (`DEFAULT_SEED = 42`), and record seeds, configs, and library versions alongside outputs in `Source/results/` (CSV/PNG).
 - **DBSCAN paper semantics**: `N_Eps(p)` includes `p` itself (consistent with `MinPts = 4` in KDD-96). Border-point cluster assignment depends on point traversal order—note any order-dependent differences when testing against `sklearn`.
 - **Video assets**: Generate all diagrams/plots in Manim (no raw screenshots from `Docs/dbscan.pdf`), include on-screen citations, and include subtitles throughout.
-- **AI disclosure**: Log every AI tool and its purpose (including TTS/coding assistants) in `Report/sections/05_ai_use.typ`.
+- **AI disclosure**: Log every AI session (including TTS and coding assistants) in your member file `Docs/ai-usage/M<1-5>.md`; each entry must contain 3 sections: `Date`, `Tool`, and `Prompt`. Summarize all tools and purposes in `Report/sections/05_ai_use.typ`.
 
 ## Team Ownership & Workflow
 
