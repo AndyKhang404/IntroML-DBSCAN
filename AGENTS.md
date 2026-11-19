@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Shared project contract for coding agents assisting the 5-member **IntroML-DBSCAN** team (CSC14005, FIT HCMUS; deadline **2026-12-19/20**, freeze **2026-12-18**).
+Shared project contract for coding agents assisting the 5-member **IntroML-DBSCAN** team (CSC14005, FIT HCMUS; deadline **2026-12-13 23:59**, freeze **2026-12-12**).
 
 ## Locked Decisions & Scope
 
