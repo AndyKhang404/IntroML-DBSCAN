@@ -1,6 +1,6 @@
 #set document(
   title: "Reproducing DBSCAN: A Density-Based Algorithm for Discovering Clusters in Large Spatial Databases with Noise",
-  author: ("Member 1", "Member 2", "Member 3", "Member 4", "Member 5"),
+  author: ("Phùng Bảo Khang", "Nguyễn Minh Đức", "Nguyễn Phạm Tuấn Đạt", "Nguyễn Hoàng Bảo Long", "Văn Phú Đức"),
 )
 
 #set page(
@@ -37,7 +37,7 @@
     columns: (auto, auto),
     stroke: none,
     align: (left, left),
-    [*Student IDs & Names:*], [MSSV1 – Member 1 (Lead) \ MSSV2 – Member 2 \ MSSV3 – Member 3 \ MSSV4 – Member 4 \ MSSV5 – Member 5],
+    [*Student IDs & Names:*], [24127052 – Phùng Bảo Khang (M1, Lead) \ 24127345 – Nguyễn Minh Đức (M2) \ 24127342 – Nguyễn Phạm Tuấn Đạt (M3) \ 24127201 – Nguyễn Hoàng Bảo Long (M4) \ 24127346 – Văn Phú Đức (M5)],
     [*Repository:*], [https://github.com/AndyKhang404/IntroML-DBSCAN],
     [*Video URL:*], [See `url.txt` (pending upload)],
   )

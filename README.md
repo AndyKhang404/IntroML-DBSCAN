@@ -72,10 +72,10 @@ python scripts/compat.py exp 01
 
 ## Team Roles & Workflow
 
-- **M1 (Lead / Report)**: Scaffold, `uv`/CI, Typst report integration, §1.1.1 & §1.1.3, submission packaging.
-- **M2 (Core Algorithms)**: From-scratch DBSCAN (brute-force + KD-tree), `kdist`, `sklearn` equivalence tests, §1.2.2.
-- **M3 (Paper Reproduction)**: CLARANS baseline, synthetic DB1–3, SEQUOIA substitute scaling study, §1.2.1 & §1.2.3.
-- **M4 (Bonus & Course Links)**: Limitation experiments, sensitivity analysis, backup dataset, course links, §1.2.4.
-- **M5 (Manim Video)**: Storyboard, Manim animations, English AI voiceover, subtitles, upload, §1.1.2 core theory.
+- **M1 — Phùng Bảo Khang (24127052) (Lead / Report)**: Scaffold, `uv`/CI, Typst report integration, §1.1.1 & §1.1.3, submission packaging.
+- **M2 — Nguyễn Minh Đức (24127345) (Core Algorithms)**: From-scratch DBSCAN (brute-force + KD-tree), `kdist`, `sklearn` equivalence tests, §1.2.2.
+- **M3 — Nguyễn Phạm Tuấn Đạt (24127342) (Paper Reproduction)**: CLARANS baseline, synthetic DB1–3, SEQUOIA substitute scaling study, §1.2.1 & §1.2.3.
+- **M4 — Nguyễn Hoàng Bảo Long (24127201) (Bonus & Course Links)**: Limitation experiments, sensitivity analysis, backup dataset, course links, §1.2.4.
+- **M5 — Văn Phú Đức (24127346) (Manim Video)**: Storyboard, Manim animations, English AI voiceover, subtitles, upload, §1.1.2 core theory.
 
 Branching policy: work on feature branches (`feat/<topic>`), open a PR into `main`, pass CI (`ruff` + `pytest` + Typst build), and get at least 1 peer review before merging.
