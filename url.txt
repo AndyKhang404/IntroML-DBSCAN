@@ -1,0 +1,3 @@
+# Paste the public video URL here before submission (YouTube / Facebook / etc.)
+# Required hashtags on upload: #fithcmus #machinelearning #ai #ml
+https://example.com/replace-with-public-video-url

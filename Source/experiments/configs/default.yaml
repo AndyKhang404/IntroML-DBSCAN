@@ -1,0 +1,20 @@
+seed: 42
+results_dir: Source/results
+
+effectiveness:
+  n_samples: 1000
+  min_pts: 4
+  eps_by_db:
+    db1: 0.15
+    db2: 0.15
+    db3: 0.15
+  clarans_clusters: 4
+
+kdist:
+  k: 4
+
+runtime:
+  sample_sizes: [1252, 2503, 3910, 5213, 6256]
+  repeats: 3
+  min_pts: 4
+  eps: 0.15

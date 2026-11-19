@@ -1,0 +1,35 @@
+[tool.uv.workspace]
+members = ["Source", "Manim"]
+
+[dependency-groups]
+dev = [
+    "poethepoet>=0.30",
+    "pytest>=8.0",
+    "ruff>=0.8",
+]
+
+[tool.poe.tasks]
+sync = "uv sync --all-packages --group dev"
+sync-source = "uv sync --package dbscan-repro --group dev"
+test = "pytest"
+lint = "ruff check Source Manim scripts"
+format = "ruff format Source Manim scripts"
+export-req = "uv export --package dbscan-repro --no-dev --no-hashes --no-emit-project -o Source/requirements.txt"
+exp-01 = "python Source/experiments/01_effectiveness.py"
+exp-02 = "python Source/experiments/02_kdist.py"
+exp-03 = "python Source/experiments/03_runtime.py"
+exp-04 = "python Source/experiments/04_limitations.py"
+report = "typst compile Report/main.typ Report/Report.pdf"
+video-preview = "uv run --package dbscan-manim manim -pql Manim/scenes/intro.py IntroScene"
+clean = "python scripts/compat.py clean"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["Source/tests"]
+pythonpath = ["Source/src"]

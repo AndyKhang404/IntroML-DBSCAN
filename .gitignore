@@ -1,0 +1,27 @@
+# Python / uv
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+dist/
+build/
+
+# Manim outputs & media (large binaries; commit scripts/assets, not rendered frames)
+Manim/media/
+Manim/**/*.mp4
+Manim/**/*.mov
+Manim/**/*.partial_movie_files/
+
+# Typst / LaTeX build artifacts
+Report/*.pdf
+*.aux
+*.log
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

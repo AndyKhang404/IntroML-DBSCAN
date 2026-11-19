@@ -1,0 +1,38 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  python-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Install Source package and dev dependencies
+        run: uv sync --locked --package dbscan-repro --group dev
+
+      - name: Lint with ruff via poe
+        run: uv run --no-sync poe lint
+
+      - name: Run pytest via poe
+        run: uv run --no-sync poe test
+
+  typst-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Typst
+        uses: typst-community/setup-typst@v3
+
+      - name: Compile Report
+        run: typst compile Report/main.typ Report/Report.pdf
