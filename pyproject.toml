@@ -8,6 +8,10 @@ dev = [
     "ruff>=0.8",
 ]
 
+[tool.poe.executor]
+type = "uv"
+no-sync = true
+
 [tool.poe.tasks]
 sync = "uv sync --all-packages --group dev"
 sync-source = "uv sync --package dbscan-repro --group dev"
