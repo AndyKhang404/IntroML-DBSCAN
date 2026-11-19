@@ -44,7 +44,14 @@ uv run --no-sync poe sync
 uv run --no-sync poe video-preview
 ```
 
-To compile the Typst report (`typst` CLI required):
+To compile the Typst report (`Report/main.typ` -> `Report/Report.pdf`), first install the `typst` CLI:
+
+- **Cargo (cross-platform)**: `cargo install --locked typst-cli`
+- **macOS / Linux (Homebrew)**: `brew install typst`
+- **Windows (Winget)**: `winget install --id Typst.Typst`
+- **Linux packages / prebuilt binaries**: install `typst` via your distro package manager (e.g., `sudo pacman -S typst`, `sudo apt install typst`) or download a release binary from `https://github.com/typst/typst/releases`.
+
+Then compile with:
 
 ```bash
 uv run --no-sync poe report
