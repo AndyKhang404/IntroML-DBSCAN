@@ -1,0 +1,52 @@
+{
+  "experiment": "kdist",
+  "seed": 42,
+  "config": {
+    "effectiveness": {
+      "n_samples": 1000,
+      "min_pts": 4,
+      "eps_by_db": {
+        "db1": 0.03,
+        "db2": 0.025,
+        "db3": 0.04
+      },
+      "clarans_clusters": 4,
+      "clarans_clusters_by_db": {
+        "db1": 4,
+        "db2": 2,
+        "db3": 2
+      },
+      "clarans_num_local": 1,
+      "clarans_max_neighbor": 40
+    },
+    "kdist": {
+      "k": 4
+    },
+    "runtime": {
+      "sample_sizes": [
+        1252,
+        2503,
+        3910,
+        5213,
+        6256
+      ],
+      "repeats": 3,
+      "min_pts": 4,
+      "eps": 0.04,
+      "clarans_clusters": 8,
+      "clarans_num_local": 1,
+      "clarans_max_neighbor": 40
+    }
+  },
+  "python": "3.12.15",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
+  "packages": {
+    "numpy": "2.5.5",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1",
+    "matplotlib": "3.11.2",
+    "pandas": "3.1.1",
+    "PyYAML": "6.0.3"
+  }
+}

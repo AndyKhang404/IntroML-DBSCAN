@@ -45,16 +45,22 @@ def test_dbscan_and_kdist_smoke() -> None:
     assert np.all(np.diff(k_dist) <= 0.0)
 
 
-def test_unimplemented_stubs_raise_not_implemented() -> None:
-    X = np.zeros((4, 2))
-    y = np.zeros(4, dtype=np.intp)
-    with pytest.raises(NotImplementedError):
-        CLARANS().fit(X)
-    with pytest.raises(NotImplementedError):
-        make_synthetic_db("db1")
-    with pytest.raises(NotImplementedError):
-        make_spatial_scaling_dataset(10)
-    with pytest.raises(NotImplementedError):
-        clustering_summary(y, y)
-    with pytest.raises(NotImplementedError):
-        measure_runtime_seconds(lambda: 1)
+def test_m3_interfaces_return_expected_shapes_and_metrics() -> None:
+    X, y = make_synthetic_db("db1", n_samples=100, seed=123)
+    assert X.shape == (100, 2)
+    assert y.shape == (100,)
+    assert np.all(np.isfinite(X))
+    assert set(np.unique(y)).issubset({-1, 0, 1, 2, 3})
+    assert make_spatial_scaling_dataset(25, seed=123).shape == (25, 2)
+
+    model = CLARANS(n_clusters=2, max_neighbor=10, random_state=123).fit(X)
+    assert model.labels_ is not None and model.labels_.shape == (100,)
+    assert model.medoid_indices_ is not None and len(model.medoid_indices_) == 2
+
+    summary = clustering_summary(y, y)
+    assert summary["ari"] == pytest.approx(1.0)
+    assert summary["nmi"] == pytest.approx(1.0)
+    assert summary["noise_ratio"] == pytest.approx(float(np.mean(y == -1)))
+    result, mean, std = measure_runtime_seconds(lambda: 7, repeats=2)
+    assert result == 7
+    assert mean >= 0.0 and std >= 0.0

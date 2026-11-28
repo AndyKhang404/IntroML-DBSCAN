@@ -2,8 +2,11 @@
 
 from __future__ import annotations
 
+import json
+import platform
 import random
 from dataclasses import dataclass, field
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 from typing import Any
 
@@ -39,3 +42,33 @@ def load_config(path: str | Path) -> ExperimentConfig:
     results_dir = Path(raw.get("results_dir", "Source/results"))
     params = {k: v for k, v in raw.items() if k not in {"seed", "results_dir"}}
     return ExperimentConfig(seed=seed, results_dir=results_dir, params=params)
+
+
+def write_run_metadata(cfg: ExperimentConfig, experiment: str) -> Path:
+    """Write seed, full config, and runtime environment beside experiment outputs."""
+    cfg.results_dir.mkdir(parents=True, exist_ok=True)
+    packages = ("numpy", "scipy", "scikit-learn", "matplotlib", "pandas", "PyYAML")
+    versions: dict[str, str] = {}
+    for package in packages:
+        try:
+            versions[package] = version(package)
+        except PackageNotFoundError:
+            versions[package] = "not installed"
+    destination = cfg.results_dir / f"{experiment}_metadata.json"
+    destination.write_text(
+        json.dumps(
+            {
+                "experiment": experiment,
+                "seed": cfg.seed,
+                "config": cfg.params,
+                "python": platform.python_version(),
+                "platform": platform.platform(),
+                "processor": platform.processor() or "unknown",
+                "packages": versions,
+            },
+            indent=2,
+        )
+        + "\n",
+        encoding="utf-8",
+    )
+    return destination
