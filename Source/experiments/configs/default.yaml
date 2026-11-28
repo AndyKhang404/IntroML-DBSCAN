@@ -21,6 +21,7 @@ kdist:
 
 runtime:
   sample_sizes: [1252, 2503, 3910, 5213, 6256]
+  warmup_runs: 1
   repeats: 3
   min_pts: 4
   eps: 0.04

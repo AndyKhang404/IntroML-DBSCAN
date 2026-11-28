@@ -28,7 +28,8 @@ non-noise groups for each synthetic dataset, one randomized local search, and
 at most 40 unsuccessful neighbors per local search. Runtime runs use
 $"MinPts"=4$, $"Eps"=0.04$, the configured sample counts
 `[1252, 2503, 3910, 5213, 6256]`, and three repetitions per method. CLARANS
-runtime uses $k=8$, one local search, and a 40-neighbor limit so the randomized
+runtime uses one untimed warmup followed by those three timed repetitions.
+CLARANS runtime uses $k=8$, one local search, and a 40-neighbor limit so the randomized
 baseline remains tractable at the largest size.
 
 Each experiment exports CSV/PNG results and a JSON metadata record containing
@@ -37,7 +38,7 @@ system, and processor identifier. Runtime comparisons are interpreted as
 within-machine scaling trends and ratios; they are not compared as absolute
 seconds with the 1996 measurements. The recorded environment is Windows 11
 (build 10.0.26200), with an Intel64 Family 6 Model 170 processor identifier,
-Python 3.12.15, NumPy 2.5.5, SciPy 1.18.1, scikit-learn 1.9.1, and Matplotlib
+Python 3.13.16, NumPy 2.5.5, SciPy 1.18.1, scikit-learn 1.9.1, and Matplotlib
 3.11.2. The full per-run environment details are preserved in the experiment
 metadata JSON files.
 
@@ -230,7 +231,7 @@ and resulting spatial partition together.
 The runtime table and log-scale curve are exported as
 `Source/results/runtime_scaling.csv` and `runtime_scaling.png`. Reported means
 and standard deviations summarize three runs on the same generated point set
-for each size. Brute-force DBSCAN scans all points for each neighborhood
+for each size after one untimed warmup per method. Brute-force DBSCAN scans all points for each neighborhood
 query, while the KD-tree can prune queries in this two-dimensional setting;
 the observed speedup is the brute-force mean divided by the KD-tree mean and
 is meaningful only for this implementation and machine. CLARANS has a
@@ -242,21 +243,20 @@ baseline trend rather than an algorithmically identical workload.
   align: center,
   inset: 4pt,
   [*Points*], [*DBSCAN brute (s)*], [*DBSCAN KD-tree (s)*], [*CLARANS (s)*],
-  [1,252], [0.043], [0.049], [0.006],
-  [2,503], [0.118], [0.101], [0.018],
-  [3,910], [0.268], [0.176], [0.023],
-  [5,213], [0.370], [0.308], [0.053],
-  [6,256], [0.899], [0.488], [0.031],
+  [1,252], [0.045], [0.044], [0.006],
+  [2,503], [0.125], [0.160], [0.018],
+  [3,910], [0.252], [0.182], [0.025],
+  [5,213], [0.411], [0.271], [0.030],
+  [6,256], [0.515], [0.362], [0.017],
 )
 
-At 1,252 points, the KD-tree is slightly slower in this run (0.049 s versus
-0.043 s), where tree construction and query overhead outweigh pruning. At
-6,256 points it is about 1.84 times faster than brute force (0.899 s / 0.488
-s). Across the endpoints, brute-force time grows about 21.1 times, compared
-with about 10.0 times for the KD-tree and 5.5 times for the bounded CLARANS
-search. This is consistent with the KD-tree advantage emerging as the input
-grows, while the measured factors depend on the generated point density and
-implementation details.
+At 1,252 points the DBSCAN timings are nearly equal (0.045 s brute force,
+0.044 s KD-tree); at 6,256 points the KD-tree is about 1.42 times faster
+(0.515 s / 0.362 s). Across the endpoints, brute-force time grows about 11.4
+times, compared with about 8.1 times for the KD-tree. The bounded CLARANS
+search grows about 2.7 times between the endpoints, although its timing also
+depends on the randomized swap path and fixed neighbor budget. These ratios
+describe this 2D substitute and implementation on the recorded machine.
 
 These experiments reproduce the paper's comparisons in structure, but not
 its original input coordinates or 1996 machine. Synthetic geometry, current

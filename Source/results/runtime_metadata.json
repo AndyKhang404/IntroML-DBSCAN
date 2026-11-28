@@ -30,6 +30,7 @@
         5213,
         6256
       ],
+      "warmup_runs": 1,
       "repeats": 3,
       "min_pts": 4,
       "eps": 0.04,
@@ -38,7 +39,7 @@
       "clarans_max_neighbor": 40
     }
   },
-  "python": "3.12.15",
+  "python": "3.13.16",
   "platform": "Windows-11-10.0.26200-SP0",
   "processor": "Intel64 Family 6 Model 170 Stepping 4, GenuineIntel",
   "packages": {

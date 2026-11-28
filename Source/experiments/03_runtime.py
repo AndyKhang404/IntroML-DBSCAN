@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 import csv
 from pathlib import Path
+from typing import TypedDict
 
 import matplotlib.pyplot as plt
 from dbscan_repro.clarans import CLARANS
@@ -16,6 +17,16 @@ from dbscan_repro.datasets import make_spatial_scaling_dataset
 from dbscan_repro.dbscan import DBSCANScratch
 from dbscan_repro.metrics import measure_runtime_seconds
 from dbscan_repro.plotting import apply_paper_style, save_figure
+
+
+class RuntimeResult(TypedDict):
+    n_samples: int
+    method: str
+    mean_seconds: float
+    std_seconds: float
+    repeats: int
+    warmups: int
+    seed: int
 
 
 def parse_args() -> argparse.Namespace:
@@ -35,9 +46,10 @@ def main() -> None:
     set_seed(cfg.seed)
     settings = cfg.params["runtime"]
     sizes = settings["sample_sizes"]
+    warmups = int(settings.get("warmup_runs", 1))
     cfg.results_dir.mkdir(parents=True, exist_ok=True)
     apply_paper_style()
-    rows: list[dict[str, object]] = []
+    rows: list[RuntimeResult] = []
     write_run_metadata(cfg, "runtime")
     for n_samples in sizes:
         X = make_spatial_scaling_dataset(n_samples, cfg.seed)
@@ -56,6 +68,8 @@ def main() -> None:
             ).fit_predict(data),
         }
         for method, run in methods.items():
+            for _ in range(warmups):
+                run()
             _, mean, std = measure_runtime_seconds(run, repeats=settings["repeats"])
             rows.append(
                 {
@@ -64,6 +78,7 @@ def main() -> None:
                     "mean_seconds": mean,
                     "std_seconds": std,
                     "repeats": settings["repeats"],
+                    "warmups": warmups,
                     "seed": cfg.seed,
                 }
             )
