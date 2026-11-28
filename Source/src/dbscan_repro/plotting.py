@@ -14,12 +14,30 @@ if TYPE_CHECKING:
 
 def apply_paper_style() -> None:
     """Configure consistent publication-quality Matplotlib defaults."""
-    # TODO(M3): configure shared Matplotlib rcParams for report figures.
-    raise NotImplementedError("M3: implement shared plotting style.")
+    import matplotlib as mpl
+
+    mpl.rcParams.update(
+        {
+            "figure.dpi": 120,
+            "savefig.dpi": 300,
+            "font.size": 9,
+            "axes.labelsize": 9,
+            "axes.titlesize": 10,
+            "legend.fontsize": 8,
+            "lines.linewidth": 1.5,
+            "axes.grid": True,
+            "grid.alpha": 0.25,
+            "figure.autolayout": True,
+        }
+    )
 
 
 def save_figure(fig: Figure, path: str | Path) -> Path:
     """Save figure ensuring parent directories exist."""
-    _ = (fig, path)
-    # TODO(M3): save Matplotlib figure to disk and close it cleanly.
-    raise NotImplementedError("M3: implement figure export helper.")
+    import matplotlib.pyplot as plt
+
+    output = Path(path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(output, bbox_inches="tight")
+    plt.close(fig)
+    return output
